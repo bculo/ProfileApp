@@ -15,6 +15,13 @@ import { environment } from 'src/environments/environment';
 
 import { MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NotificationModule } from './services/notification/notification.module';
+import { StoreModule } from '@ngrx/store';
+
+import * as state from './store/'
+import { EffectsModule } from '@ngrx/effects';
+import { DictionariesEffects } from './store/dictionaries/dictionaries.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { UserEffects } from './store/user/user.effects';
 
 const APP_DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -43,7 +50,11 @@ const APP_DATE_FORMATS: MatDateFormats = {
     BrowserAnimationsModule,
     MatNativeDateModule,
 
-    NotificationModule.forRoot()
+    NotificationModule.forRoot(),
+
+    StoreModule.forRoot(state.reducers),
+    EffectsModule.forRoot([DictionariesEffects, UserEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }), 
   ],
   providers: [  
     { provide: MAT_DATE_LOCALE, useValue: 'hr' },

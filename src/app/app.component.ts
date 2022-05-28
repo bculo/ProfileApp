@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from './store/'
+import * as DictionariesActions from './store/dictionaries/dictionaries.actions';
+import * as UserActions from './store/user/user.actions';
+
 
 @Component({
   selector: 'app-root',
@@ -7,14 +13,11 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'components-app';
-
-  constructor(private afs: AngularFirestore) {}
+  constructor(private store: Store<fromRoot.State>) {}
 
   ngOnInit(): void {
-    this.afs.collection('test').snapshotChanges().subscribe(items => {
-      console.log(items.map(x => x.payload.doc.data()));
-    });
+    //this.store.dispatch(DictionariesActions.read());
+    this.store.dispatch(UserActions.signInEmail({ credentials: {email: "culix@gmail.com", passsword: "123456"}}));
   }
 
 }
