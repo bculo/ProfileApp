@@ -21,6 +21,46 @@ const initialState: UserState = {
 export const userReducer = createReducer(
     initialState,
 
+    on(UserActions.init,
+        (state, action) => ({
+            ...state,
+            loading: true,
+        })
+    ),
+
+    on(UserActions.initAuthorized,
+        (state, action) => ({
+            ...state,
+            loading: false,
+            uid: action.uid,
+            entity: action.user
+        })
+    ),
+
+    on(UserActions.initUnauthorized,
+        (state, action) => ({
+            ...state,
+            loading: false,
+            entity: null,
+            uid: null
+        })
+    ),
+
+    on(UserActions.initError,
+        (state, action) => ({
+            ...state,
+            loading: false,
+            error: action.error
+        })
+    ),
+
+    on(UserActions.init,
+        (state, action) => ({
+            ...state,
+            loading: true,
+        })
+    ),
+
     on(UserActions.signInEmail, 
         (state, action) => ({
             ...state,

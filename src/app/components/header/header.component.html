@@ -2,5 +2,15 @@
     <div class="header__title">ComponentApp</div>
     <div class="header__navigation">
         <a routerLink="demo" class="app-a" routerLinkActive="app-a_active">Demo</a>
+
+        <ng-container *ngIf="!isAuthorized">
+            <a routerLink="auth/login" class="app-a" routerLinkActive="app-a_active">Login</a>
+            <a routerLink="auth/registration" class="app-a" routerLinkActive="app-a_active">Registration</a>
+        </ng-container>
+
+        <ng-container  *ngIf="isAuthorized">
+            <a class="app-a" (click)="onSignOut()">Sign out</a>
+        </ng-container>
+
     </div>
 </div>

@@ -1,6 +1,11 @@
 import { createAction, props } from "@ngrx/store";
 import { EmailPasswordCredentials, User } from "./user.model";
 
+const INIT = '[User] Init: Start';
+const INIT_AUTHORIZED = '[User] Init: Authorized';
+const INIT_UNAUTHORIZED = '[User] Init: Unauthorized';
+const INIT_ERROR = '[User] Init: Error';
+
 const SIGN_IN_EMAIL = '[User] Sign in: start';
 const SIGN_IN_EMAIL_SUCCESS = '[User] Sign in: success';
 const SIGN_IN_EMAIL_ERROR = '[User] Sign in: error';
@@ -12,6 +17,28 @@ const SIGN_UP_EMAIL_ERROR = '[User] Sign up: error';
 const SIGN_OUT = '[User] Sign out: start';
 const SIGN_OUT_SUCCESS = '[User] Sign out: success';
 const SIGN_OUT_ERROR = '[User] Sign out: error';
+
+export const init = createAction(
+    INIT
+);
+
+export const initAuthorized = createAction(
+    INIT_AUTHORIZED,
+    props<{
+        uid: string, user: User
+    }>()
+);
+
+export const initUnauthorized = createAction(
+    INIT_UNAUTHORIZED
+);
+
+export const initError = createAction(
+    INIT_ERROR,
+    props<{
+        error: string
+    }>()
+);
 
 export const signInEmail = createAction(
     SIGN_IN_EMAIL,
@@ -56,10 +83,7 @@ export const signUpEmailError = createAction(
 );
 
 export const signOut = createAction(
-    SIGN_OUT,
-    props<{
-        credentials: EmailPasswordCredentials
-    }>()
+    SIGN_OUT
 );
 
 export const signOutSuccess = createAction(

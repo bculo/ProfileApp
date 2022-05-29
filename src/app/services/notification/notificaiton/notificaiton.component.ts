@@ -13,7 +13,7 @@ export interface Notification {
 })
 export class NotificaitonComponent implements OnInit {
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string) { }
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: Notification) { }
 
   ngOnInit(): void {
   }
