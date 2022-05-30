@@ -78,6 +78,9 @@ export class UserEffects {
         switchMap(action => {
             return from(this.afAuth.signOut())
                 .pipe(
+                    tap(() => {
+                        this.router.navigate(["/auth/login"]);
+                    }),
                     map(() => UserAction.signOutSuccess()),
                     catchError(error => {
                         this.notification.error(error.message);

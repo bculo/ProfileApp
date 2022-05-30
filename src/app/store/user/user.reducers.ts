@@ -117,7 +117,11 @@ export const userReducer = createReducer(
 
     on(UserActions.signOutSuccess, 
         (state, action) => ({
-            ...state
+            ...state,
+            loading: false,
+            entity: null,
+            error: null,
+            uid: null,
         })
     ),
 

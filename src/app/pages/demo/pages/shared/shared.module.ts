@@ -7,6 +7,7 @@ import { ButtonsModule } from 'src/app/shared/buttons';
 import { ControlsModule, FormFieldModule } from 'src/app/shared/controls';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IndicatorsModule } from 'src/app/shared/indicators/indicators.module';
+import { PopupsModule } from 'src/app/shared/popups/popups.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { IndicatorsModule } from 'src/app/shared/indicators/indicators.module';
     ReactiveFormsModule,
     FormFieldModule,
     ControlsModule,
-    IndicatorsModule
+    IndicatorsModule,
+    PopupsModule
   ]
 })
 export class SharedModule { }
