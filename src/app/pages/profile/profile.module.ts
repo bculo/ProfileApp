@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserPhotoModule } from './user-photo/user-photo.module';
 
+import { ProfileRoutingModule } from './profile-routing.module';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    UserPhotoModule
-  ],
-  exports: [
-    UserPhotoModule
+    ProfileRoutingModule
   ]
 })
-export class LayoutModule { }
+export class ProfileModule { }

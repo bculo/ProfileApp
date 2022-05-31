@@ -12,17 +12,15 @@ const documentToItem = (x: DocumentChangeAction<any>): Item => {
     const data = x.payload.doc.data();
     return {
         id: x.payload.doc.id,
-        name: data.name
+        ...data
     };
-}
+};
 
-const itemToControlItem = (x: Item) : ControlItem => {
-    return {
-        value: x.id,
-        label: x.name,
-        icon: x.icon
-    };
-}
+const itemToControlItem = (x: Item): ControlItem => ({
+    value: x.id,
+    label: x.name,
+    icon: x.icon
+});
 
 const addDictionary = (items: Item[]): Dictionary => {
     return {
@@ -75,8 +73,9 @@ export class DictionariesEffects {
                             roles: addDictionary(roles),
                             skills: addDictionary(skills),
                             specializations: addDictionary(specializations),
-                            conutries: countries,
+                            conutries: addDictionary(countries),
                         };
+
                         return DictionariesActions.readSuccess({dictionaries});
                     }),
                     catchError(error => {

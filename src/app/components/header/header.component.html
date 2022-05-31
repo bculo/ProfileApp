@@ -9,6 +9,7 @@
         </ng-container>
 
         <ng-container  *ngIf="isAuthorized">
+            <a class="app-a" routerLink="profile/new" routerLinkActive="app-a_active">Profile</a>
             <a class="app-a" (click)="onSignOut()">Sign out</a>
         </ng-container>
 

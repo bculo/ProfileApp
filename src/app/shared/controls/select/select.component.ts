@@ -28,6 +28,8 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("SelectComponent");
+    console.log(this.items);
   }
 
   onChange: any = () => {}
