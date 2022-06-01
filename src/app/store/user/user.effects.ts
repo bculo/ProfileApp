@@ -3,7 +3,8 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, from, map, of, switchMap, take, tap, } from "rxjs";
+import { serverTimestamp } from 'firebase/firestore'
+import { catchError, from, map, of, switchMap, take, tap, withLatestFrom, } from "rxjs";
 import { NotificationService } from "src/app/services/notification/notification.service";
 import { environment } from "src/environments/environment";
 
@@ -89,6 +90,37 @@ export class UserEffects {
                 )
         }),
     ));
+
+    createUser$ = createEffect(() => this.action$.pipe(
+        ofType(UserAction.createUser),
+        map(action => action.user),
+        withLatestFrom(this.afAuth.authState.pipe(take(1))),
+        map(([user, state]) => ({
+            ...user,
+            uid: state.uid,
+            email: state.email,
+            created: serverTimestamp()
+        })),
+        switchMap(user => {
+            return from(this.afs.collection('users').doc(user.uid).set(user)).pipe(
+                tap(() => this.router.navigate(['/profile', user.uid])),
+                map(() => { return UserAction.createUserSuccess({ user: user }) }),
+                catchError(error => { return of(UserAction.createUserError({ error: error.message }))})
+            )
+        })
+    ))
+
+    updateUser$ = createEffect(() => this.action$.pipe(
+        ofType(UserAction.updateUser),
+        map(action => action.user),
+        switchMap(user => {
+            return from(this.afs.collection('users').doc(user.uid).set(user)).pipe(
+                tap(() => this.router.navigate(['/profile', user.uid])),
+                map(() => { return UserAction.updateUserSuccess({ user: user }) }),
+                catchError(error => { return of(UserAction.updateUserError({ error: error.message }))})
+            )
+        })
+    ))
 
 
     constructor(

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { EmailPasswordCredentials, User } from "./user.model";
+import { EmailPasswordCredentials, User, UserCreateRequest } from "./user.model";
 
 const INIT = '[User] Init: Start';
 const INIT_AUTHORIZED = '[User] Init: Authorized';
@@ -17,6 +17,14 @@ const SIGN_UP_EMAIL_ERROR = '[User] Sign up: error';
 const SIGN_OUT = '[User] Sign out: start';
 const SIGN_OUT_SUCCESS = '[User] Sign out: success';
 const SIGN_OUT_ERROR = '[User] Sign out: error';
+
+const CREATE = '[User] Create: Start';
+const CREATE_SUCCESS = '[User] Create: Success';
+const CREATE_ERROR = '[User] Create: Error';
+
+const UPDATE = '[User] Update: Start';
+const UPDATE_SUCCESS = '[User] Update: Success';
+const UPDATE_ERROR = '[User] Update: Error';
 
 export const init = createAction(
     INIT
@@ -94,5 +102,48 @@ export const signOutError = createAction(
     SIGN_OUT_ERROR,
     props<{
         error: string
+    }>()
+);
+
+export const createUser = createAction(
+    CREATE,
+    props<{
+       user: UserCreateRequest 
+    }>()
+);
+
+export const createUserSuccess = createAction(
+    CREATE_SUCCESS,
+    props<{
+        user: User 
+     }>()
+);
+
+export const createUserError = createAction(
+    CREATE_ERROR,
+    props<{
+        error: string 
+    }>()
+);
+
+
+export const updateUser = createAction(
+    UPDATE,
+    props<{
+        user: User 
+    }>()
+);
+
+export const updateUserSuccess = createAction(
+    UPDATE_SUCCESS,
+    props<{
+        user: User 
+    }>()
+);
+
+export const updateUserError = createAction(
+    UPDATE_ERROR,
+    props<{
+        error: string 
     }>()
 );

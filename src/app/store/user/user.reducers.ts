@@ -132,4 +132,52 @@ export const userReducer = createReducer(
             error: action.error
         })
     ),
+
+    on(UserActions.createUser, 
+        (state, action) => ({
+            ...state,
+            loading: true,
+            error: null
+        })
+    ),
+
+    on(UserActions.createUserSuccess, 
+        (state, action) => ({
+            ...state,
+            loading: false,
+            entity: action.user
+        })
+    ),
+
+    on(UserActions.createUserError, 
+        (state, action) => ({
+            ...state,
+            loading: false,
+            error: action.error
+        })
+    ),
+
+    on(UserActions.updateUser, 
+        (state, action) => ({
+            ...state,
+            loading: true,
+            error: null
+        })
+    ),
+
+    on(UserActions.updateUserSuccess, 
+        (state, action) => ({
+            ...state,
+            loading: false,
+            entity: action.user
+        })
+    ),
+
+    on(UserActions.updateUserError, 
+        (state, action) => ({
+            ...state,
+            loading: false,
+            error: action.error
+        })
+    ),
 )

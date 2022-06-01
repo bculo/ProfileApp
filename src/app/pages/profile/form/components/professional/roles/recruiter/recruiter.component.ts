@@ -29,6 +29,8 @@ export class RecruiterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log("HELLO EmployeeComponent");
+
     this.form = this.fb.group({
       companyName: [null, {
         updateOn: 'blur', validators: [

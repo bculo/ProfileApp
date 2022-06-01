@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { markFormGroupTouched } from 'src/app/shared/utils/form';
@@ -16,7 +16,7 @@ export interface PersonalForm {
 @Component({
   selector: 'app-personal',
   templateUrl: './personal.component.html',
-  styleUrls: ['./personal.component.scss']
+  styleUrls: ['./personal.component.scss'],
 })
 export class PersonalComponent implements OnInit, OnDestroy {
 
@@ -31,8 +31,7 @@ export class PersonalComponent implements OnInit, OnDestroy {
   private destroy = new Subject<any>();
 
   constructor(private stepper: StepperService, 
-    private fb: FormBuilder,
-    private cdf: ChangeDetectorRef) { 
+    private fb: FormBuilder) { 
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   {
@@ -9,10 +10,13 @@ const routes: Routes = [
   {
       path: 'edit',
       loadChildren: () => import('./form/form.module').then(m => m.FormModule),
+      resolve: {
+        user: UserResolver
+      }
   },
   {
       path: ':id',
-      loadChildren: () => import('./display/display.module').then(m => m.DisplayModule)
+      loadChildren: () => import('./display/display.module').then(m => m.DisplayModule),
   }
 ];
 

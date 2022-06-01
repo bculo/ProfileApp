@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { markFormGroupTouched } from 'src/app/shared/utils/form';
@@ -17,7 +17,8 @@ export interface ProfessionalForm {
 @Component({
   selector: 'app-professional',
   templateUrl: './professional.component.html',
-  styleUrls: ['./professional.component.scss']
+  styleUrls: ['./professional.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfessionalComponent implements OnInit, OnDestroy {
 
@@ -43,8 +44,6 @@ export class ProfessionalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    console.log(this.dictionaries.skills.controlItems);
-
     this.form = this.fb.group({
       roleId: [null, {
         updateOn: 'change', validators: [
@@ -62,6 +61,7 @@ export class ProfessionalComponent implements OnInit, OnDestroy {
       if(!this.form.valid){
         markFormGroupTouched(this.form);
         this.form.updateValueAndValidity();
+        this.cdf.detectChanges();
       }
       else{
         this.changed.emit(this.form.value);

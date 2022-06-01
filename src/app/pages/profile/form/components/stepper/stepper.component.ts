@@ -49,8 +49,6 @@ export class StepperComponent implements OnInit, OnDestroy {
   }
 
   onNext() {
-    console.log("onNext - STEPPER-COMPONNET");
-    
     this.stepper.check.next('next');
   }
 
