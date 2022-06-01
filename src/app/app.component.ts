@@ -6,7 +6,8 @@ import * as fromRoot from './store/'
 import * as fromUser from './store/user/user.selectors'
 import * as DictionariesActions from './store/dictionaries/dictionaries.actions';
 import * as UserActions from './store/user/user.actions';
-import { Observable } from 'rxjs';
+import { filter, Observable, take } from 'rxjs';
+import { User } from './store/user';
 
 
 @Component({
@@ -17,18 +18,25 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   
   isAuthorized$: Observable<boolean>;
+  user$: Observable<User>;
 
   constructor(private store: Store<fromRoot.State>) {}
 
   ngOnInit(): void {
     this.isAuthorized$ = this.store.pipe(select(fromUser.getIsAuthorized))
+    this.user$ = this.store.pipe(select(fromUser.getUser))
 
-    this.store.dispatch(DictionariesActions.read());
     this.store.dispatch(UserActions.init());
+
+    this.store.pipe(select(fromUser.getUserState)).pipe(
+      filter(state => !!state.uid),
+      take(1)
+    ).subscribe(() => {
+      this.store.dispatch(DictionariesActions.read());
+    });
   }
 
   signOut() {
     this.store.dispatch(UserActions.signOut());
   }
-
 }
