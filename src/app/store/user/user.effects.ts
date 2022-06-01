@@ -21,7 +21,6 @@ export class UserEffects {
         }),
         switchMap(state => {
             if(state){
-                console.log(`users/${state.uid}`);
                 return this.afs.doc<User>(`users/${state.uid}`).valueChanges().pipe(
                     take(1),
                     map(user => UserAction.initAuthorized({ uid: state.uid, user: user})),

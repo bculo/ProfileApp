@@ -10,6 +10,7 @@
 
         <ng-container  *ngIf="isAuthorized">
             <a class="app-a" (click)="onProfileNavigate()" routerLinkActive="app-a_active">Profile</a>
+            <a class="app-a"  routerLink="/jobs" routerLinkActive="app-a_active">Jobs</a>
             <a class="app-a" routerLink="/employees" routerLinkActive="app-a_active">Employees</a>
             <a class="app-a" (click)="onSignOut()">Sign out</a>
         </ng-container>
