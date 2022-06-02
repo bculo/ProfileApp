@@ -12,7 +12,7 @@ export class UserEffects {
     constructor(private actions$: Actions, private afs: AngularFirestore){
     }
 
-    loadMovies$ = createEffect(() => this.actions$.pipe(
+    loadUsers$ = createEffect(() => this.actions$.pipe(
         ofType(UserActions.read),
         switchMap(action => {
             return this.afs.doc<User>(`users/${action.id}`).valueChanges().pipe(
