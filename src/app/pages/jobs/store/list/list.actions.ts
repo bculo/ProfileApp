@@ -64,7 +64,7 @@ export const createError = createAction(
 export const update = createAction(
     UPDATE,
     props<{
-        items: Job
+        item: Job
     }>()
 );
 

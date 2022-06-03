@@ -17,3 +17,8 @@ export const getIsAuthorized = createSelector(
     getUserState,
     (state: UserState) => state.uid != null
 );
+
+export const getRoleId = createSelector(
+    getUser,
+    (user) => user && user.roleId
+)
