@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/guards';
 import { DemoComponent } from './demo.component';
 
 const routes: Routes = [
@@ -14,6 +15,11 @@ const routes: Routes = [
       {
         path: 'shared',
         loadChildren: () => import("./pages/shared/shared.module").then(i => i.SharedModule)
+      },
+      {
+        path: 'guards',
+        loadChildren: () => import("./pages/guards/guards.module").then(i => i.GuardsModule),
+        //canLoad: [AuthGuard]
       }
     ]
   },

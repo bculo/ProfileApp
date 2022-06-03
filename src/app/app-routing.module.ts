@@ -1,6 +1,7 @@
 import { FullscreenOverlayContainer } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard, RoleGuard, Roles } from './guards';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'demo',
-        loadChildren: () => import('./pages/demo/demo.module').then(m => m.DemoModule)
+        loadChildren: () => import('./pages/demo/demo.module').then(m => m.DemoModule),
       },
       {
         path: 'auth',
@@ -20,15 +21,19 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'employees',
-        loadChildren: () => import('./pages/employees/employees.module').then(m => m.EmployeesModule)
+        loadChildren: () => import('./pages/employees/employees.module').then(m => m.EmployeesModule),
+        //canActivate: [AuthGuard, RoleGuard],
+        //data: {roels: [Roles.Recruiter]}
       },
       {
         path: 'jobs',
-        loadChildren: () => import('./pages/jobs/jobs.module').then(m => m.JobsModule)
+        loadChildren: () => import('./pages/jobs/jobs.module').then(m => m.JobsModule),
+        canActivate: [AuthGuard]
       },
       {
         path: '',

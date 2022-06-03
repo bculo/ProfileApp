@@ -25,7 +25,7 @@ export class JobsComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.jobs$ = this.store.pipe(select(fromList.selectAll));
+    this.jobs$ = this.store.select(fromList.selectAll);
     this.isEditable$ = this.store.pipe(
       select(fromUser.getRoleId),
       map(roleId => ['recruited', 'employee'].includes(roleId))
